@@ -1,14 +1,145 @@
 <!DOCTYPE html>
-<html lang="pt">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hospital - POO</title>
-</head>
-<body>
-    <h1>Funcionários do Hospital</h1>
-    <div id="output"></div> <!-- Aqui os resultados serão exibidos -->
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lista de Funcionários</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #e3f2fd;
+        color: #333;
+      }
 
-    <script src="script.js"></script> <!-- Importando o JavaScript -->
-</body>
+      header {
+        background-color: rgb(207, 128, 207);
+        color: white;
+        text-align: center;
+        padding: 20px;
+        font-size: 2em;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 2.5em;
+        letter-spacing: 2px;
+      }
+
+      table {
+        width: 90%;
+        margin: 40px auto;
+        border-collapse: collapse;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        background-color: #ffffff;
+      }
+
+      th,
+      td {
+        padding: 15px;
+        text-align: left;
+      }
+
+      th {
+        background-color: plum;
+        color: white;
+        font-size: 1.2em;
+      }
+
+      td {
+        color: #444;
+        border-bottom: 1px solid #f2c8ee;
+      }
+
+      tr:nth-child(even) td {
+        background-color: #f5d1f2;
+      }
+
+      tr:nth-child(odd) td {
+        background-color: #ffffff;
+      }
+
+      tr:hover {
+        background-color: #e2c1e4;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Lista de Funcionários</h1>
+    </header>
+
+    <table id="funcionariosTable">
+      <thead>
+        <tr>
+          <th>Cargo</th>
+          <th>Nome</th>
+          <th>Idade</th>
+          <th>CPF</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <script>
+      class Funcionario {
+        constructor(nome, idade, cpf, cargo) {
+          this.nome = nome;
+          this.idade = idade;
+          this.cpf = cpf;
+          this.cargo = cargo;
+        }
+      }
+
+      const cargos = [
+        "Médico",
+        "Enfermeira",
+        "Recepcionista",
+        "Cirurgião",
+        "Socorrista",
+        "Funcionário da Limpeza",
+        "Diretor",
+      ];
+      const nomes = [
+        "Felipe",
+        "Nicolly",
+        "Sarah",
+        "João",
+        "Gabriel",
+        "Joana",
+        "Ricardo",
+      ];
+      const idades = [42, 37,32, 55, 28, 45, 60];
+      const cpfs = [
+        "123.456.789-00",
+        "987.654.321-11",
+        "456.789.123-22",
+        "321.654.987-33",
+        "159.357.456-44",
+        "753.951.852-55",
+        "852.456.159-66",
+      ];
+
+      const funcionarios = nomes.map(
+        (nome, index) =>
+          new Funcionario(nome, idades[index], cpfs[index], cargos[index])
+      );
+
+      const tableBody = document.querySelector("#funcionariosTable tbody");
+
+      funcionarios.forEach((func) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+        <td>${func.cargo}</td>
+        <td>${func.nome}</td>
+        <td>${func.idade}</td>
+        <td>${func.cpf}</td>
+      `;
+        tableBody.appendChild(row);
+      });
+    </script>
+  </body>
 </html>
