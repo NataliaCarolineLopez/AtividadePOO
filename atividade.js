@@ -1,118 +1,109 @@
+console.log("=== Sistema do Hospital ===");
 
-// Funcionários do hospital com método falar
+const outputDiv = typeof document !== "undefined" ? document.getElementById("output") : null;
+
+// Função auxiliar para exibir na tela e no console
+function exibirNaTela(titulo, mensagem) {
+    console.log(`${titulo}: ${mensagem}`);
+    if (outputDiv) outputDiv.innerHTML += `<p><strong>${titulo}:</strong> ${mensagem}</p>`;
+}
+
+// 🔹 1. ABSTRAÇÃO - Classe genérica `Funcionario`
 class Funcionario {
-    constructor(nome) {
+    #salario; // Encapsulamento: atributo privado
+
+    constructor(nome, cargo, salario) {
         this.nome = nome;
+        this.cargo = cargo;
+        this.#salario = salario; // Protegendo o salário
     }
+
+    // Método para obter o salário (getter)
+    getSalario() {
+        return "Informação restrita! O valor do salário é confidencial.";
+    }
+
+    // Método comum a todos
+    trabalhar() {
+        return `${this.nome} está trabalhando como ${this.cargo}.`;
+    }
+
+    // Método que será sobrescrito (Polimorfismo)
     falar() {
-        console.log(`${this.nome} diz algo...`);
+        return `${this.nome} diz: "Estou no hospital."`;
     }
 }
 
+// 🔹 2. HERANÇA - Criando subclasses específicas
 class Medico extends Funcionario {
+    constructor(nome, especialidade, salario) {
+        super(nome, "Médico", salario);
+        this.especialidade = especialidade;
+    }
+
     falar() {
-        console.log(`${this.nome} diz: "Vou cuidar do paciente!"`);
+        return `${this.nome} diz: "Sou ${this.especialidade} e vou cuidar dos pacientes!"`;
     }
 }
 
 class Enfermeiro extends Funcionario {
+    constructor(nome, setor, salario) {
+        super(nome, "Enfermeiro", salario);
+        this.setor = setor;
+    }
+
     falar() {
-        console.log(`${this.nome} diz: "Vou aplicar a medicação!"`);
+        return `${this.nome} diz: "Sou enfermeiro no setor ${this.setor}, estou aqui para ajudar!"`;
     }
 }
 
 class Recepcionista extends Funcionario {
+    constructor(nome, turno, salario) {
+        super(nome, "Recepcionista", salario);
+        this.turno = turno;
+    }
+
     falar() {
-        console.log(`${this.nome} diz: "Bem-vindo ao hospital, como posso ajudar?"`);
+        return `${this.nome} diz: "Bem-vindo ao hospital! Como posso ajudar?"`;
     }
 }
 
-class Fisioterapeuta extends Funcionario {
+class Cozinheiro extends Funcionario {
     falar() {
-        console.log(`${this.nome} diz: "Vamos realizar os exercícios de reabilitação!"`);
+        return `${this.nome} diz: "Estou preparando refeições saudáveis para os pacientes."`;
     }
 }
 
-class Psicologo extends Funcionario {
+class Limpeza extends Funcionario {
     falar() {
-        console.log(`${this.nome} diz: "Vamos trabalhar a sua saúde mental!"`);
+        return `${this.nome} diz: "Estou mantendo o hospital limpo e seguro!"`;
     }
 }
 
-class Farmaceutico extends Funcionario {
+class Estagiario extends Enfermeiro {
+    constructor(nome, setor) {
+        super(nome, setor, 2000); // Salário fixo para estagiários
+    }
+
     falar() {
-        console.log(`${this.nome} diz: "Aqui está o medicamento correto para o seu tratamento."`);
+        return `${this.nome} diz: "Sou estagiário e estou aprendendo muito no hospital!"`;
     }
 }
 
-class AuxiliarLimpeza extends Funcionario {
-    falar() {
-        console.log(`${this.nome} diz: "Vou limpar o ambiente para garantir a segurança!"`);
-    }
-}
+// 🔹 3. OBJETOS - Criando funcionários
+const funcionarios = [
+    new Medico("Dr. Felipe", "Cirurgião", 15000),
+    new Medico("Dra. Nicolly", "Otorrino", 14000),
+    new Enfermeiro("Enzo", "Emergência", 5000),
+    new Recepcionista("Sarah", "Diurno, Noturno", 3000),
+    new Cozinheiro("Yuri", "Cozinheiro", 4000),
+    new Limpeza("Jeff", "Limpeza", 2500),
+    new Estagiario("Bryan", "Enfermagem")
+];
 
-// Criando os objetos para cada funcionário
-const medico = new Medico('Dr. João');
-const enfermeiro = new Enfermeiro('Enfermeira Ana');
-const recepcionista = new Recepcionista('Carla');
-const fisioterapeuta = new Fisioterapeuta('Lucas');
-const psicologo = new Psicologo('Dra. Maria');
-const farmaceutico = new Farmaceutico('Pedro');
-const auxiliar = new AuxiliarLimpeza('José');
-
-// Professores e alunos com herança e encapsulamento
-class Pessoa {
-    constructor(nome) {
-        this.nome = nome;
-    }
-    falar() {
-        console.log(`${this.nome} diz: "Olá!"`);
-    }
-}
-
-class Professor extends Pessoa {
-    constructor(nome, salario) {
-        super(nome);
-        this._salario = salario;  // Dado privado (encapsulado)
-    }
-    falar() {
-        console.log(`${this.nome} diz: "Vou ensinar algo importante!"`);
-    }
-    get salario() {
-        return this._salario;
-    }
-}
-
-class Aluno extends Pessoa {
-    constructor(nome, nota) {
-        super(nome);
-        this._nota = nota;  // Dado privado (encapsulado)
-    }
-    falar() {
-        console.log(`${this.nome} diz: "Estou aprendendo muito!"`);
-    }
-    get nota() {
-        return this._nota;
-    }
-}
-
-// Criando um professor e um aluno
-const professor = new Professor('Professor Paulo', 3500);
-const aluno = new Aluno('João', 8.5);
-
-// Exibindo dados
-document.getElementById("salarioProfessor").textContent = professor.salario;
-document.getElementById("notaAluno").textContent = aluno.nota;
-
-// Testando métodos de fala
-medico.falar();
-enfermeiro.falar();
-recepcionista.falar();
-fisioterapeuta.falar();
-psicologo.falar();
-farmaceutico.falar();
-auxiliar.falar();
-
-professor.falar();
-aluno.falar();
-
+// 🔹 4. TESTANDO O SISTEMA
+funcionarios.forEach(func => {
+    exibirNaTela(func.cargo, func.falar());
+    exibirNaTela("Trabalho", func.trabalhar());
+    exibirNaTela("Salário", func.getSalario());
+});
