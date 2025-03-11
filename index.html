@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .employee {
+            width: 45%;
+            margin: 10px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .teacher {
+            background-color: #f0f8ff;
+        }
+        .student {
+            background-color: #ffe4e1;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Funcionários do Hospital</h1>
+
+    <div class="container">
+        <div class="employee"> 
+            <h3>Médico</h3>
+            <button onclick="medico.falar()">Falar</button>
+        </div>
+
+        <div class="employee">
+            <h3>Enfermeiro</h3>
+            <button onclick="enfermeiro.falar()">Falar</button>
+        </div>
+
+        <div class="employee">
+            <h3>Recepcionista</h3>
+            <button onclick="recepcionista.falar()">Falar</button>
+        </div>
+
+        <div class="employee">
+            <h3>Fisioterapeuta</h3>
+            <button onclick="fisioterapeuta.falar()">Falar</button>
+        </div>
+
+        <div class="employee">
+            <h3>Psicólogo</h3>
+            <button onclick="psicologo.falar()">Falar</button>
+        </div>
+
+        <div class="employee">
+            <h3>Farmacêutico</h3>
+            <button onclick="farmaceutico.falar()">Falar</button>
+        </div>
+
+        <div class="employee">
+            <h3>Auxiliar de Limpeza</h3>
+            <button onclick="auxiliar.falar()">Falar</button>
+        </div>
+    </div>
+
+    <h1>Testando Herança e Encapsulamento</h1>
+
+    <div class="container">
+        <div class="employee teacher">
+            <h3>Professor</h3>
+            <button onclick="professor.falar()">Falar</button>
+            <p>Salário: <span id="salarioProfessor"></span></p>
+        </div>
+
+        <div class="employee student">
+            <h3>Aluno</h3>
+            <button onclick="aluno.falar()">Falar</button>
+            <p>Nota: <span id="notaAluno"></span></p>
+        </div>
+    </div>
